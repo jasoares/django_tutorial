@@ -19,7 +19,8 @@ class Poll(models.Model):
         Returns true or false wether the poll was published somewhere
         in the last 24 hours
         """
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date < now
 
     was_published_recently.admin_order_field = 'pub_date'
     was_published_recently.boolean = True
